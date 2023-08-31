@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require("bcrypt");
 
 const router = require("express").Router();
 
@@ -10,27 +10,51 @@ router.post("/register", async (req, res) => {
 
   try {
     const userEmail = await User.findOne({ email: req.body.email });
-
     if (userEmail) {
       return res.send({
         success: false,
         message: "this mail id is already exist",
       });
     }
-
     // hashed the password
     const salt = await bcrypt.genSalt(10);
-    const hashed = await bcrypt.hash(req.body.password, salt)
+    const hashed = await bcrypt.hash(req.body.password, salt);
 
-    req.body.password = hashed
-
+    req.body.password = hashed;
 
     const newUser = new User(req.body);
     console.log(newUser);
     await newUser.save();
-    res.send("User Added Succesfully!!");
+    res.send("User Registered, Now please Login");
   } catch (error) {
     console.log(error);
+  }
+});
+
+// login the user
+router.post("/login", async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+
+    if (!user) {
+      return res.send({
+        success: "false",
+        message: "This user not Exists, please register",
+      });
+    }
+
+    const validPassword = await bcrypt.compare(req.body.password, user.password)
+
+    if(!validPassword){
+        return res.send({
+            success : "false",
+            massage: "Invalid password"
+        })
+    }
+
+    return res.send("Login Successfully!!");
+  } catch (error) {
+    console.log("error", error);
   }
 });
 
