@@ -25,7 +25,10 @@ router.post("/register", async (req, res) => {
     const newUser = new User(req.body);
     console.log(newUser);
     await newUser.save();
-    res.send("User Registered, Now please Login");
+    res.send({
+      message: "User Registered, Now please Login",
+      success: true,
+    });
   } catch (error) {
     console.log(error);
   }
@@ -38,21 +41,27 @@ router.post("/login", async (req, res) => {
 
     if (!user) {
       return res.send({
-        success: "false",
+        success: false,
         message: "This user not Exists, please register",
       });
     }
 
-    const validPassword = await bcrypt.compare(req.body.password, user.password)
+    const validPassword = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
 
-    if(!validPassword){
-        return res.send({
-            success : "false",
-            massage: "Invalid password"
-        })
+    if (!validPassword) {
+      return res.send({
+        message: "Invalid password",
+        success: false,
+      });
     }
 
-    return res.send("Login Successfully!!");
+    return res.send({
+      message: "Login Successfully!!",
+      success: true,
+    });
   } catch (error) {
     console.log("error", error);
   }

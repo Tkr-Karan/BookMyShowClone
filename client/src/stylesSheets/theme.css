@@ -1,7 +1,10 @@
 :root {
   --colour-primary: #3ba7a7;
   --colour-secondary: #e6b412;
+}
 
+.bg-image {
+  background-image: url("https://img.freepik.com/free-vector/seamless-pattern-with-cinema-elements_225004-1154.jpg?w=740&t=st=1693487341~exp=1693487941~hmac=f63a6de93ff607bf2ac7df47100f40984c1cbfd98e3e220df7783256c4c7ceed");
 }
 
 .bg-primary {

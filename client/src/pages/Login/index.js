@@ -1,16 +1,31 @@
 import React from "react";
-import { Form } from "antd";
+import { Form, message } from "antd";
 // import Button from "../../components/Button";
 import { Link } from "react-router-dom";
 import Button from "../../components/Button";
+import axios from "axios";
 
 const Login = () => {
+  const onFinish = async (values) => {
+    const response = await axios.post("http://localhost:8080/api/users/login", values, {
+      'content-type': 'application/json'
+    })
+    console.log(response)
+    const res = response.data;
+
+    if(res.success){
+      message.success(res.message);
+    }else{
+      message.error(res.message)
+    }
+  };
+
   return (
-    <div className="flex justify-center h-screen items-center bg-primary">
+    <div className="flex justify-center h-screen items-center bg-image">
       <div className="card p-3 w-400">
         <h1 className="text-xl mb-1">Welcome Again! Please Login</h1>
         <hr />
-        <Form layout="vertical" className="mt-1">
+        <Form layout="vertical" className="mt-1" onFinish={onFinish}>
           <Form.Item
             label="Email"
             name="email"
