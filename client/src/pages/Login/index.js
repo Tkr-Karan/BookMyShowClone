@@ -1,22 +1,33 @@
 import React from "react";
 import { Form, message } from "antd";
 // import Button from "../../components/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button";
 import axios from "axios";
 
-const Login = () => {
-  const onFinish = async (values) => {
-    const response = await axios.post("http://localhost:8080/api/users/login", values, {
-      'content-type': 'application/json'
-    })
-    console.log(response)
-    const res = response.data;
+export default function Login(){
+  const navigate = useNavigate();
 
-    if(res.success){
-      message.success(res.message);
-    }else{
-      message.error(res.message)
+  const onFinish = async (values) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/users/login",
+        values,
+        {
+          "content-type": "application/json",
+        }
+      );
+      console.log(response);
+      const res = response.data;
+
+      if (res.success) {
+        message.success(res.message);
+        navigate("/");
+      } else {
+        message.error(res.message);
+      }
+    } catch (err) {
+      message.error(err.message);
     }
   };
 
@@ -53,5 +64,3 @@ const Login = () => {
     </div>
   );
 };
-
-export default Login;

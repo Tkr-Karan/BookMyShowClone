@@ -46,6 +46,8 @@ router.post("/login", async (req, res) => {
       });
     }
 
+    //check the hashed password
+
     const validPassword = await bcrypt.compare(
       req.body.password,
       user.password
