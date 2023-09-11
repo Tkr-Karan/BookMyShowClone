@@ -3,9 +3,11 @@ const bcrypt = require("bcrypt");
 const router = require("express").Router();
 
 const User = require("../models/userModel");
+const jwt = require('jsonwebtoken');
+const authMiddleware = require("../middlewares/authMiddleware");
 
 // creating the post resuwxt for reguister the use data
-router.post("/register", async (req, res) => {
+router.post("/register" ,async (req, res) => {
   // console.log(req.body);
 
   try {
@@ -60,14 +62,36 @@ router.post("/login", async (req, res) => {
       });
     }
 
+    let token = jwt.sign({userId : user._id}, process.env.jwt_secret_key, {expiresIn: "1d"});
+    console.log(token)
+
     return res.send({
       message: "Login Successfully!!",
       success: true,
+      token: token
     });
   } catch (error) {
     console.log("error", error);
   }
 });
+
+//get current details of the user
+router.get("/get-current-user", authMiddleware ,async (req, res) => {
+  try {
+    const user = await User.findById(req.body.userId)
+    res.send({
+      success : true,
+      message: "user data fetched!!",
+      data: user
+    })
+
+  } catch (error) {
+    res.send({
+      success: false,
+      message : error.message,
+    })    
+  }
+})
 
 // exports the router
 module.exports = router;

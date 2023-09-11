@@ -15,6 +15,8 @@ export default function Login(){
 
       if (res.success) {
         message.success(res.message);
+        // console.log(res)
+        localStorage.setItem('token', res.token)
         navigate("/");
       } else {
         message.error(res.message);
