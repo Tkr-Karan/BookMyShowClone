@@ -9,13 +9,21 @@ import "./stylesSheets/custom.css";
 import "./stylesSheets/form-elements.css";
 import "./stylesSheets/sizes.css";
 import "./stylesSheets/theme.css";
+import ProtectedRoute from "./components/ProtectedRoutes";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>
