@@ -35,4 +35,36 @@ router.get("/get-all-movies", async (req, res) => {
   }
 });
 
+//to update the movies
+router.put("/update-movie", async (req, res) => {
+  try {
+    await Movie.findByIdAndUpdate(req.body.movieId, req.body);
+    res.send({
+      success: true,
+      message: "movie updated successfully!!!",
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
+//to delete the movies
+router.put("/delete-movie", async (req, res) => {
+  try {
+    await Movie.findByIdAndDelete(req.body.movieId);
+    res.send({
+      success: true,
+      message: "movie deleted successfully",
+    });
+  } catch (error) {
+    res.send({
+      success: false,
+      message: error.message,
+    });
+  }
+});
+
 module.exports = router;
