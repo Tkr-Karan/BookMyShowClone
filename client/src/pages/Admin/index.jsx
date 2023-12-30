@@ -1,8 +1,26 @@
+import React from "react";
+import PageTitle from "../../components/PageTitle";
+import { Tabs } from "antd";
+ import MoviesList from "./MoviesList";
+// import TheatreTable from "./TheatreTable";
 
+function Admin() {
+  return (
+    <div>
+      <PageTitle title="Admin" />
 
+      <Tabs defaultActiveKey="1">
+        <Tabs.TabPane tab="Movies" key="1">
+            <MoviesList/>
+        </Tabs.TabPane>
 
-export default function Admin(){
-    return(
-        <div>I am Admin</div>
-    )
+        <Tabs.TabPane tab="Theatres" key="2">
+            {/* <TheatreTable/> */}
+            <h1>Theatre Table</h1>
+        </Tabs.TabPane>
+      </Tabs>
+    </div>
+  );
 }
+
+export default Admin;

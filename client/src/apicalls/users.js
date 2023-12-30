@@ -8,7 +8,7 @@ export const RegisterUser = async (payload) => {
     return response.data;
   } catch (error) {
     return error;
-  }
+  } 
 };
 
 export const LoginUser = async (payload) => {
