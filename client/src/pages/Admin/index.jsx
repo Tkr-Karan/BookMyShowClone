@@ -1,8 +1,8 @@
 import React from "react";
 import PageTitle from "../../components/PageTitle";
 import { Tabs } from "antd";
- import MoviesList from "./MoviesList";
-// import TheatreTable from "./TheatreTable";
+import MoviesList from "./MoviesList";
+import TheatreTable from "./TheatreTable";
 
 function Admin() {
   return (
@@ -11,12 +11,11 @@ function Admin() {
 
       <Tabs defaultActiveKey="1">
         <Tabs.TabPane tab="Movies" key="1">
-            <MoviesList/>
+          <MoviesList />
         </Tabs.TabPane>
 
         <Tabs.TabPane tab="Theatres" key="2">
-            {/* <TheatreTable/> */}
-            <h1>Theatre Table</h1>
+          <TheatreTable />
         </Tabs.TabPane>
       </Tabs>
     </div>
