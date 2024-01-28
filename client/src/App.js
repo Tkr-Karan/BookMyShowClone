@@ -12,6 +12,8 @@ import "./stylesSheets/theme.css";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
+import TheatreForm from "./pages/Profile/TheatreForm";
+import TheatreForMovie from "./pages/TheatreForMovie";
 
 function App() {
   return (
@@ -39,6 +41,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Admin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/movie/:id"
+            element={
+              <ProtectedRoute>
+                <TheatreForMovie />
               </ProtectedRoute>
             }
           />
