@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { message, Table } from "antd";
 import { HideLoading, ShowLoading } from "../../redux/loaderSlice";
 import { DeleteTheatre, GetAllTheatresByOwner } from "../../apicalls/theatre";
+import Shows from "./Shows";
 // import Shows from "./Shows";
 
 function TheatreList() {
@@ -115,10 +116,10 @@ function TheatreList() {
             {record.isActive && (
               <span
                 className="underline"
-                // onClick={() => {
-                //   setSelectedTheatre(record);
-                //   setOpenShowsModal(true);
-                // }}
+                onClick={() => {
+                  setSelectedTheatre(record);
+                  setOpenShowsModal(true);
+                }}
               >
                 Shows
               </span>
@@ -159,13 +160,13 @@ function TheatreList() {
         />
       )}
 
-      {/* {openShowsModal && (
+      {openShowsModal && (
         <Shows
           openShowsModal={openShowsModal}
           setOpenShowsModal={setOpenShowsModal}
           theatre={selectedTheatre}
         />
-      )} */}
+      )}
     </div>
   );
 }

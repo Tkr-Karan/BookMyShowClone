@@ -21,7 +21,7 @@ export const GetAllTheatresByOwner = async (payload) => {
 
     return response.data;
   } catch (error) {
-    return error.message;
+    return error.repsonse;
   }
 };
 
@@ -34,7 +34,7 @@ export const UpdateTheatre = async (payload) => {
 
     return response.data;
   } catch (error) {
-    return error.message;
+    return error.repsonse;
   }
 };
 
@@ -46,7 +46,7 @@ export const DeleteTheatre = async (payload) => {
     );
     return response.data;
   } catch (error) {
-    return error.message;
+    return error.repsonse;
   }
 };
 
@@ -56,6 +56,42 @@ export const GetAllTheatres = async () => {
 
     return response.data;
   } catch (error) {
-    return error.message;
+    return error.repsonse;
+  }
+};
+
+export const AddShow = async (payload) => {
+  try {
+    const response = await axiosInstance.post(
+      "/api/theatres/add-show",
+      payload
+    );
+    return response.data;
+  } catch (error) {
+    return error.repsonse;
+  }
+};
+
+export const GetAllShowsByTheatre = async (payload) => {
+  try {
+    const response = await axiosInstance.post(
+      "/api/theatres/get-all-show-by-theatre",
+      payload
+    );
+    return response.data;
+  } catch (err) {
+    return err.response;
+  }
+};
+
+export const DeleteShow = async (payload) => {
+  try {
+    const response = await axiosInstance.post(
+      "/api/theatres/delete-show",
+      payload
+    );
+    return response.data;
+  } catch (err) {
+    return err.response;
   }
 };
