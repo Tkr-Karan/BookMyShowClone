@@ -154,3 +154,8 @@
 .gap-3 {
   gap: 30px;
 }
+
+/* text alignmetn */
+.text-center {
+  text-align: center;
+}
