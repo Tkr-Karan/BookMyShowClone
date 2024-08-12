@@ -11,6 +11,7 @@ import { GetAllTheatresByMovie } from "../../apicalls/theatre";
 export default function TheatreForMovie() {
   const [movie, setMovie] = useState();
   const [theatres, setTheatres] = useState([]);
+  const [hoveredShowId, setHoveredShowId] = useState(null);
   const [isHovering, setIsHovering] = useState(false);
   const [date, setDate] = useState(moment().format("YYYY-MM-DD"));
   const params = useParams();
@@ -55,10 +56,12 @@ export default function TheatreForMovie() {
   };
 
   const handleMouseEnter = (id) => {
+    setHoveredShowId(id);
     setIsHovering(true);
   };
 
   const handleMouseLeave = (id) => {
+    setHoveredShowId(null);
     setIsHovering(false);
   };
 
@@ -124,10 +127,11 @@ export default function TheatreForMovie() {
                     <div
                       key={show._id}
                       style={{
-                        backgroundColor: isHovering ? "#DF1827" : "white",
-                        color: isHovering ? "white" : "#DF1827",
+                        backgroundColor:
+                          hoveredShowId === show._id ? "#DF1827" : "white",
+                        color: hoveredShowId === show._id ? "white" : "#DF1827",
                       }}
-                      onMouseEnter={handleMouseEnter}
+                      onMouseEnter={() => handleMouseEnter(show._id)}
                       onMouseLeave={handleMouseLeave}
                       className="card p-1 cursor-pointer border-primary"
                       onClick={() => {

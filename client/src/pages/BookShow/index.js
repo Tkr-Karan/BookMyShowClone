@@ -93,43 +93,26 @@ function BookShow() {
     );
   };
 
-  // const book = async (transactionId) => {
-  //   try {
-  //     dispatch(ShowLoading());
-  //     const response = await BookShowTickets({
-  //       show: params.id,
-  //       seats: selectedSeats,
-  //       transactionId,
-  //       user: user._id,
-  //     });
-  //     if (response.success) {
-  //       message.success(response.message);
-  //       navigate("/profile");
-  //     } else {
-  //       message.error(response.message);
-  //     }
-  //     dispatch(HideLoading());
-  //   } catch (error) {
-  //     message.error(error.message);
-  //     dispatch(HideLoading());
-  //   }
-  // };
-
-  const startPayment = async (price) => {
-    console.log(price);
-    const stripe = await loadStripe(
-      "pk_test_51OdZ7ySFNPAvYsQAwyaHQmXndlZBdR699vuTm6nhG04lvpesBkEvlO5LAxTmcCV52dq0JJaNi9aj1ziIVsUVpctN00feZaTLus"
-    );
-
-    const response = await MakePayment(selectedSeats.length * show.ticketPrice);
-
-    const session = await response;
-
-    const result = stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
-
-    if (result.error) console.log(result.error);
+  const book = async (transactionId) => {
+    try {
+      dispatch(ShowLoading());
+      const response = await BookShowTickets({
+        show: params.id,
+        seats: selectedSeats,
+        transactionId,
+        user: user._id,
+      });
+      if (response.success) {
+        message.success(response.message);
+        navigate("/profile");
+      } else {
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    } catch (error) {
+      message.error(error.message);
+      dispatch(HideLoading());
+    }
   };
 
 
@@ -138,13 +121,13 @@ function BookShow() {
       dispatch(ShowLoading());
       const response = await MakePayment(
         token,
-        selectedSeats.length * show.ticketPrice
+        (selectedSeats.length * show.ticketPrice) / 83,
+        selectedSeats.length
       );
       if (response.success) {
         message.success(response.message);
-        console.log(response.data);
         console.log(token);
-        // book(response.data);
+        book(response.id);
       } else {
         message.error(response.message);
       }
@@ -195,19 +178,14 @@ function BookShow() {
                 </h1>
               </div>
             </div>
-            {/* <div
+            <StripeCheckout
               token={onToken}
-              amount={selectedSeats.length * show.ticketPrice * 100}
+              amount={selectedSeats.length * show.ticketPrice}
               billingAddress
               stripeKey="pk_test_51OdZ7ySFNPAvYsQAwyaHQmXndlZBdR699vuTm6nhG04lvpesBkEvlO5LAxTmcCV52dq0JJaNi9aj1ziIVsUVpctN00feZaTLus"
-            > */}
-            <Button
-              onClick={() =>
-                startPayment(selectedSeats.length * show.ticketPrice)
-              }
-              title="Book Now"
-            />
-            {/* </div> */}
+            >
+              <Button title="Book Now" />
+            </StripeCheckout>
           </div>
         )}
       </div>

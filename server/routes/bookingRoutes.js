@@ -7,13 +7,7 @@ const stripe = require("stripe")(process.env.stripe_secret_key);
 
 router.post("/make-payments", authMiddleware, async (req, res) => {
   try {
-    const { amount } = req.body;
-
-    // const customer = await stripe.customers.create({
-    //   email: token.email,
-    //   source: token.id,
-    // });
-
+    const { token, amount, quantity } = req.body;
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
@@ -22,52 +16,25 @@ router.post("/make-payments", authMiddleware, async (req, res) => {
             product_data: {
               name: "movie ticket",
             },
-            unit_amount: amount,
+            unit_amount: Math.floor(amount),
           },
-          quantity: 3,
+          quantity: quantity,
         },
       ],
       mode: "payment",
-      success_url: "https://www.google.com",
-      cancel_url: "http://www.youtube.com",
-      // line_items: [
-      //   {
-      //     // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-      //     price: token.id,
-      //   },
-      // ],
-      // mode: "payment",
-      // success_url: "https://bms-clone-1bcr.onrender.com",
-      // cancel_url: "https://bms-clone-1bcr.onrender.com?canceled=true",
+      success_url: "http://localhost:3000/thank-you",
+      cancel_url: "http://localhost:3000/payment-failed",
     });
-
-    res.json({ id: session.id });
-    console.log(session.id);
-
-    // console.log(token, "Here is your customer");
-
-    // const charge = await stripe.charges.create({
-    //   amount: amount,
-    //   currency: "INR",
-    //   customer: customer.id,
-    //   receipt_email: token.email,
-    //   description: "Payment made for booking of ticket",
-    // });
-
-    // console.log(charge, "here is the charges");
-
-    // const transactionId = charge.id;
-    res.send({
+    res.json({
       success: true,
       message: "Payment done, Ticket booked",
+      id: session.id,
     });
-    // res.redirect(303, session.url);
-  } catch (error) {
-    console.log(error, "error");
-    // res.send({
-    //   success: false,
-    //   message: error.message,
-    // });
+  } catch (err) {
+    res.send({
+      success: false,
+      message: err.message,
+    });
   }
 });
 

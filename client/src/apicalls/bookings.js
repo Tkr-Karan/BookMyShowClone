@@ -1,16 +1,14 @@
 import { axiosInstance } from ".";
 
-export const MakePayment = async (amount) => {
+export const MakePayment = async (token, amount, quantity) => {
   try {
-    console.log(amount);
     const response = await axiosInstance.post("/api/bookings/make-payments", {
+      token,
       amount,
+      quantity,
     });
-
-    console.log(amount, "here is you details");
     return response.data;
   } catch (error) {
-    console.log(error);
     return error.response;
   }
 };

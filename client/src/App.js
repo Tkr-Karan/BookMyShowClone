@@ -16,6 +16,8 @@ import TheatreForm from "./pages/Profile/TheatreForm";
 import TheatreForMovie from "./pages/TheatreForMovie";
 import BookShow from "./pages/BookShow";
 import { useSelector } from "react-redux";
+import { ThaknYouPage } from "./pages/Layout/ThankYou.js";
+import { PaymentErrorPage } from "./pages/Layout/PaymentErrorPage/index.js";
 
 function App() {
   const { loading } = useSelector((state) => state.loaders);
@@ -72,6 +74,8 @@ function App() {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/thank-you" element={<ThaknYouPage />} />
+          <Route path="/payment-failed" element={<PaymentErrorPage />} />
         </Routes>
       </BrowserRouter>
     </div>
