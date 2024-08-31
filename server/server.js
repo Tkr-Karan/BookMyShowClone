@@ -20,6 +20,11 @@ const bookingRoutes = require("./routes/bookingRoutes");
 
 app.use(cors());
 app.use(express.json());
+
+// this route i am checking for jus DEPLOYMENT purpose 
+app.use("/", (req, res) => {
+  res.send("hello APIS");
+});
 app.use("/api/users", userRoutes);
 app.use("/api/movies", moviesRoutes);
 app.use("/api/theatres", theatresRoutes);
