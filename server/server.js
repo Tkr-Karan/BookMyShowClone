@@ -30,14 +30,15 @@ app.use(express.json());
 //   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 // });
 
+  app.use("/api/users", userRoutes);
+  app.use("/api/movies", moviesRoutes);
+  app.use("/api/theatres", theatresRoutes);
+  app.use("/api/bookings", bookingRoutes);
+  
 // this route i am checking for jus DEPLOYMENT purpose 
 app.use("/", (req, res) => {
   res.send("hello APIS");
 });
-app.use("/api/users", userRoutes);
-app.use("/api/movies", moviesRoutes);
-app.use("/api/theatres", theatresRoutes);
-app.use("/api/bookings", bookingRoutes);
 
 app.listen(PORT, () => {
   console.log(`your server is running fine at ${PORT}`);
