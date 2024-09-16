@@ -22,13 +22,13 @@ const bookingRoutes = require("./routes/bookingRoutes");
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from the 'public' directory
-app.use(express.static(path.join(__dirname, 'public')));
+// // Serve static files from the 'public' directory
+// app.use(express.static(path.join(__dirname, 'public')));
 
-// Handle all other routes by serving index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
+// // Handle all other routes by serving index.html
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// });
 
 // this route i am checking for jus DEPLOYMENT purpose 
 app.use("/", (req, res) => {
